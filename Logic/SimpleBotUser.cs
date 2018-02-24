@@ -1,13 +1,16 @@
-﻿using System;
+﻿using SimpleBot.Repositorio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SimpleBot.Mongo;
 
 namespace SimpleBot
 {
     public class SimpleBotUser
-    {       
+    {
+        //private static IUserRepo _repo = new UserMongo();
+        private static IUserRepo _repo = new UserMSSQL(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BOT;Integrated Security=True;MultipleActiveResultSets=True");
+
         public static string Reply(Message message)
         {
             //FiapMongo mongo = new FiapMongo();
@@ -27,16 +30,12 @@ namespace SimpleBot
 
         public static UserProfile GetProfile(string id)
         {
-            FiapMongo mongo = new FiapMongo();
-
-            return mongo.FindProfile(id);
+            return _repo.FindProfile(id);
         }
 
         public static void SetProfile(string id, UserProfile profile)
         {
-            FiapMongo mongo = new FiapMongo();
-
-            mongo.UpdateProfile(id, profile);
+            _repo.UpdateProfile(id, profile);
         }
     }
 }

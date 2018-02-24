@@ -1,19 +1,17 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace SimpleBot.Mongo
+namespace SimpleBot.Repositorio
 {
-    public class FiapMongo
+    public class UserMongo : IUserRepo
     {
         private static MongoClient _client;
         private static IMongoDatabase _db;
         IMongoCollection<BsonDocument> _history;
         IMongoCollection<UserProfile> _profile;
 
-        public FiapMongo()
+        public UserMongo()
         {
             _client = new MongoClient();
 
@@ -22,11 +20,6 @@ namespace SimpleBot.Mongo
             _history = _db.GetCollection<BsonDocument>("History");
 
             _profile = _db.GetCollection<UserProfile>("Profile");
-        }
-
-        public IEnumerable<BsonDocument> FindAll()
-        {
-            return _db.GetCollection<BsonDocument>("History").Find(new FilterDefinitionBuilder<BsonDocument>().Empty).ToList();
         }
 
         public void InsertMessage(Message message)
