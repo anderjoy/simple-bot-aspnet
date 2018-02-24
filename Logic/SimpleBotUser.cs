@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SimpleBot.Mongo;
 
 namespace SimpleBot
 {
@@ -9,6 +10,11 @@ namespace SimpleBot
     {
         public static string Reply(Message message)
         {
+            FiapMongo mongo = new FiapMongo();
+
+            mongo.InsertMessage(message);
+
+
             return $"{message.User} disse '{message.Text}'";
         }
 
