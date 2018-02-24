@@ -7,24 +7,36 @@ using SimpleBot.Mongo;
 namespace SimpleBot
 {
     public class SimpleBotUser
-    {
+    {       
         public static string Reply(Message message)
         {
-            FiapMongo mongo = new FiapMongo();
+            //FiapMongo mongo = new FiapMongo();
 
-            mongo.InsertMessage(message);
+            //mongo.InsertMessage(message);
 
+            string userId = message.Id;
 
-            return $"{message.User} disse '{message.Text}'";
+            var perfil = GetProfile(userId);
+
+            perfil.Visitas++;
+
+            SetProfile(userId, perfil);
+
+            return $"{message.User} conversou {perfil.Visitas} vezes";
         }
 
         public static UserProfile GetProfile(string id)
         {
-            return null;
+            FiapMongo mongo = new FiapMongo();
+
+            return mongo.FindProfile(id);
         }
 
         public static void SetProfile(string id, UserProfile profile)
         {
+            FiapMongo mongo = new FiapMongo();
+
+            mongo.UpdateProfile(id, profile);
         }
     }
 }
