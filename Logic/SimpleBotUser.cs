@@ -9,7 +9,8 @@ namespace SimpleBot
     public class SimpleBotUser
     {
         //private static IUserRepo _repo = new UserMongo();
-        private static IUserRepo _repo = new UserMSSQL(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BOT;Integrated Security=True;MultipleActiveResultSets=True");
+        //private static IUserRepo _repo = new UserMSSQL(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BOT;Integrated Security=True;MultipleActiveResultSets=True");
+        private static IUserRepo _repo = new UserMSSQLDapper(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BOT;Integrated Security=True;MultipleActiveResultSets=True");
 
         public static string Reply(Message message)
         {
