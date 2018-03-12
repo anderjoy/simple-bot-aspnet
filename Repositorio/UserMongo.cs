@@ -40,14 +40,21 @@ namespace SimpleBot.Repositorio
 
             if (_user == null)
             {
-                _user = new UserProfile()
-                {
-                    Id = Id,
-                    Visitas = 0
-                };
-
-                _profile.InsertOne(_user);
+                _user = GetProfileDefault(Id);
             }
+
+            return _user;
+        }
+
+        private UserProfile GetProfileDefault(string Id)
+        {
+            UserProfile _user = new UserProfile()
+            {
+                Id = Id,
+                Visitas = 0
+            };
+
+            _profile.InsertOne(_user);
 
             return _user;
         }
